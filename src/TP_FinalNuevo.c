@@ -21,6 +21,7 @@ int main(void) {
 
 	//config_CAP2();
 	//config_TMR1();
+	config_PWM();
 	config_adc();
 	configUART();
 

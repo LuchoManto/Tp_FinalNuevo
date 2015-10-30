@@ -30,7 +30,7 @@ void arrancar_motor(void)
 		delay();
 		set_Pwm(900);	//900us
 		delay();
-		set_Pwm(1140);	//1140us
+		set_Pwm(1100);	//1100us
 }
 
 void set_Pwm(int num)

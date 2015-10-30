@@ -54,7 +54,7 @@ void config_adc(void)
 int valor (void)
 {
 
-	int valor_convertido;
+	float valor_convertido;
 	float valor_real;
 	int valor_enviar = 0;
 
@@ -68,12 +68,13 @@ int valor (void)
 	{
 
 	}
-	valor_convertido = 0xFFF & ((int)LPC_ADC->ADDR0 << 4); //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
+	valor_convertido = (LPC_ADC->ADDR0 >> 4);
+	valor_convertido = 0xFFF & (LPC_ADC->ADDR0 >> 4); //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
 
 	// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
 	// valor real == 2*valor convertido / 4095
 
-	valor_real = (2*valor_convertido) / 4095;
+	valor_real = (3*valor_convertido) / 4095;
 	valor_enviar = valor_real;
 
 	LPC_ADC->ADCR &=~ (1 << 21); // coloca el ADC en modo operacional.
