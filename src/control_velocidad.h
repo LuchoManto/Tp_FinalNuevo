@@ -11,3 +11,7 @@
 
 
 #endif /* CONTROL_VELOCIDAD_H_ */
+
+
+config_CAP2(void);
+config_TMR1(void);

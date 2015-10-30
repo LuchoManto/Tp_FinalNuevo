@@ -8,6 +8,7 @@
 #include "headers.h"
 #include "uart.h"
 #include "control_motor.h"
+#include "conversor.h"
 
 uint8_t uartData = 0;
 
@@ -55,6 +56,7 @@ void UART3_IRQHandler(void)
 {
 	uartData=LPC_UART3->RBR;
 	enviarUART(uartData);
+	int valor1;
 	switch(uartData){
 	case 43: //+
 		incrementar_pwm();
