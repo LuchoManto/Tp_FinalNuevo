@@ -69,6 +69,7 @@ void UART3_IRQHandler(void)
 		set_Pwm(700);
 		break;
 	case 50:
+		valor();
 		break;
 	case 51:
 		break;

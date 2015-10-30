@@ -11,6 +11,7 @@
 #include "headers.h"
 #include "uart.h"
 #include "control_motor.h"
+#include "conversor.h"
 
 int main(void) {
 
@@ -19,7 +20,7 @@ int main(void) {
 
 	config_CAP2();
 	config_TMR1();
-//	config_PWM();
+	config_adc();
 	configUART();
 
 
