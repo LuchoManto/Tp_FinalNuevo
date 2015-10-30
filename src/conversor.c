@@ -64,19 +64,19 @@ int valor (void)
 	LPC_ADC->ADCR &=~ (1<<25); //STAR CONVERSION NOW.
 	LPC_ADC->ADCR &=~ (1<<26);
 
-	if (LPC_ADC->ADDR0 & (1<<31))
+	while (!(LPC_ADC->ADSTAT & (1<<0)))
 	{
-		//bandera_adc = 0;
-		valor_convertido = (int)LPC_ADC->ADDR0;
 
-		// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
-		// valor real == 2*valor convertido / 4095
-
-		valor_real = (2*valor_convertido) / 4095;
-		valor_enviar = valor_real;
 	}
+	valor_convertido = 0xFFF & ((int)LPC_ADC->ADDR0 >> 4); //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
 
-	LPC_ADC->ADCR &=~ (1 << 21); // coloca el ADC en modo operacional
+	// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
+	// valor real == 2*valor convertido / 4095
+
+	valor_real = (2*valor_convertido) / 4095;
+	valor_enviar = valor_real;
+
+	LPC_ADC->ADCR &=~ (1 << 21); // coloca el ADC en modo operacional.
 
 	LPC_ADC->ADCR |= (1<<24);
 	LPC_ADC->ADCR &=~ (1<<25);  //STOP ADC.
