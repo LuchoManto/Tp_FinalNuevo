@@ -94,5 +94,8 @@ void UART3_IRQHandler(void)
 	case 57: //9
 		set_Pwm(1250);
 		break;
+	case 114:
+		get_RPM();
+		break;
 	}
 }
