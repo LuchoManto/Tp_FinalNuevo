@@ -8,10 +8,14 @@
 #include "headers.h"
 #include "conversor.h"
 
+
 int bandera_adc;
 
 void config_adc()
 {
+	LPC_PINCON->PINSEL1 |= (1<<14); //Configuro el pin P0.23 para que funcione como entrada analogica para el AD0.0
+	LPC_PINCON->PINSEL1 &=~ (1<<15);
+
 	LPC_SC->PCONP |= (1 << 12); // habilitar el periferico PCONP para que funcione el ADC, por defecto esta deshabilitado
 
 	LPC_SC->PCLKSEL0 &= ~(1 << 24);
@@ -27,7 +31,7 @@ void config_adc()
 	LPC_PINCON->PINMODE1 |= (1 << 15); //configuro el pin de entrada de modo que no tenga ni pull down ni pull up
 
 	LPC_ADC->ADCR |= (1 << 16); //habilita el bit de interrupcion del ADC
-	LPC_ADC->ADCR |= (1 << 26); //comenzar conversion cuando hay flanco en MATCH 1 de Timer0
+	//LPC_ADC->ADCR |= (1 << 26); //comenzar conversion cuando hay flanco en MATCH 1 de Timer0
 	LPC_ADC->ADCR &= ~(1 << 27); //flanco de subida activa la conversion
 
 	NVIC_IRQEnable (ADC_IRQn);
@@ -42,14 +46,21 @@ void ADC_IRQHandler()
 	if(LPC_ADC->ADSTAT & 1)
 		LPC_ADC->ADDR0; // si la bandera que se subio era la del canal 0, se baja el bit de DONE correspondiente
 
-
 }
 
-uint8_t valor ()
+
+//comience conversion, mida, envie el dato y desactivar el ADC.
+
+int valor ()
 {
+
 	int valor_convertido;
 	float valor_real;
-	uint8_t valor_enviar = 0;
+	int valor_enviar = 0;
+
+	LPC_ADC->ADCR |= (1<<24);
+	LPC_ADC->ADCR &=~ (1<<25); //STAR CONVERSION NOW.
+	LPC_ADC->ADCR &=~ (1<<26);
 
 	if (bandera_adc == 1)
 	{
