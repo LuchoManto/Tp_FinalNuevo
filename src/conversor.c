@@ -8,6 +8,8 @@
 #include "headers.h"
 #include "conversor.h"
 
+int bandera_adc;
+
 void config_adc()
 {
 	LPC_SC->PCONP |= (1 << 12); // habilitar el periferico PCONP para que funcione el ADC, por defecto esta deshabilitado
@@ -34,20 +36,33 @@ void config_adc()
 
 void ADC_IRQHandler()
 {
-	int valor_convertido;
-	float valor_real;
+	bandera_adc = 1;
 
 //	LPC_ADC->ADSTAT &= ~ (1<<16); // se baja la bandera de interrupcion del adc
 	if(LPC_ADC->ADSTAT & 1)
 		LPC_ADC->ADDR0; // si la bandera que se subio era la del canal 0, se baja el bit de DONE correspondiente
 
-	valor_convertido = (int)LPC_ADC->ADDR0;
-
-	// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
-	// valor real == 2*valor convertido / 4095
-
-	valor_real = (2*valor_convertido) / 4095;
-
-
 
 }
+
+uint8_t valor ()
+{
+	int valor_convertido;
+	float valor_real;
+	uint8_t valor_enviar = 0;
+
+	if (bandera_adc == 1)
+	{
+		bandera_adc = 0;
+		valor_convertido = (int)LPC_ADC->ADDR0;
+
+		// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
+		// valor real == 2*valor convertido / 4095
+
+		valor_real = (2*valor_convertido) / 4095;
+		valor_enviar = valor_real;
+	}
+	return valor_enviar;
+}
+
+

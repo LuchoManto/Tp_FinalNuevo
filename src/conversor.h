@@ -11,3 +11,5 @@
 
 
 #endif /* CONVERSOR_H_ */
+
+uint8_t valor ();
