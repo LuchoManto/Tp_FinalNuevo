@@ -64,11 +64,11 @@ int valor (void)
 	LPC_ADC->ADCR &=~ (1<<25); //STAR CONVERSION NOW.
 	LPC_ADC->ADCR &=~ (1<<26);
 
-	while (!(LPC_ADC->ADSTAT & (1<<0)))
+	while (!(LPC_ADC->ADSTAT & 1))
 	{
 
 	}
-	valor_convertido = 0xFFF & ((int)LPC_ADC->ADDR0 >> 4); //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
+	valor_convertido = 0xFFF & ((int)LPC_ADC->ADDR0 << 4); //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
 
 	// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
 	// valor real == 2*valor convertido / 4095
