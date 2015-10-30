@@ -63,26 +63,34 @@ void UART3_IRQHandler(void)
 		decrementar_pwm();
 		break;
 	case 48: //0
-		arrancar_motor();
-		break;
-	case 49:
 		set_Pwm(700);
 		break;
-	case 50:
+	case 49: //1
+		arrancar_motor();
 		break;
-	case 51:
+	case 50: //2
+		set_Pwm(1100);
 		break;
-	case 52:
+	case 51: //3
+		set_Pwm(1120);
 		break;
-	case 53:
+	case 52: //4
+		set_Pwm(1140);
 		break;
-	case 54:
+	case 53: //5
+		set_Pwm(1160);
 		break;
-	case 55:
+	case 54:  //6
+		set_Pwm(1180);
 		break;
-	case 56:
+	case 55:  //7
+		set_Pwm(1200);
 		break;
-	case 57:
+	case 56: //8
+		set_Pwm(1220);
+		break;
+	case 57: //9
+		set_Pwm(1250);
 		break;
 	}
 }
