@@ -28,6 +28,7 @@ void config_adc()
 	LPC_ADC->ADCR |= (1 << 26); //comenzar conversion cuando hay flanco en MATCH 1 de Timer0
 	LPC_ADC->ADCR &= ~(1 << 27); //flanco de subida activa la conversion
 
+	NVIC_IRQEnable (ADC_IRQn);
 }
 
 
@@ -37,8 +38,8 @@ void ADC_IRQHandler()
 	float valor_real;
 
 //	LPC_ADC->ADSTAT &= ~ (1<<16); // se baja la bandera de interrupcion del adc
-//	if(LPC_ADC->ADSTAT & 1)
-//		LPC_ADC->ADSTAT &= ~ 1; // si la bandera que se subio era la del canal 0, se baja el bit de DONE correspondiente
+	if(LPC_ADC->ADSTAT & 1)
+		LPC_ADC->ADDR0; // si la bandera que se subio era la del canal 0, se baja el bit de DONE correspondiente
 
 	valor_convertido = (int)LPC_ADC->ADDR0;
 
