@@ -9,9 +9,11 @@
 #include "uart.h"
 #include "control_motor.h"
 #include "conversor.h"
+#include "control_velocidad.h"
 
 uint8_t uartData = 0;
-
+int valoradc;
+short int valorrpm;
 
 void configUART(void)
 {
@@ -56,7 +58,6 @@ void UART3_IRQHandler(void)
 {
 	uartData=LPC_UART3->RBR;
 	enviarUART(uartData);
-	int valor1;
 	switch(uartData){
 	case 43: //+
 		incrementar_pwm();
@@ -94,8 +95,13 @@ void UART3_IRQHandler(void)
 	case 57: //9
 		set_Pwm(1250);
 		break;
-	case 114:
-		get_RPM();
+	case 114: //r
+		valorrpm = get_RPM();
+		valorrpm = valorrpm;
 		break;
+	case 97: //a
+			valoradc = valor();
+			valoradc=valoradc;
+			break;
 	}
 }

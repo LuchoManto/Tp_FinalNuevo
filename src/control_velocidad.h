@@ -13,5 +13,6 @@
 #endif /* CONTROL_VELOCIDAD_H_ */
 
 
-config_CAP2(void);
-config_TMR1(void);
+void config_CAP2(void);
+void config_TMR1(void);
+short int get_RPM(void);
