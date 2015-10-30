@@ -17,8 +17,11 @@ int main(void) {
     LPC_GPIO0->FIODIR |= (1<<22);
 	LPC_GPIO0->FIOCLR |= (1<<22);
 
-	config_PWM();
+	config_CAP2();
+	config_TMR1();
+//	config_PWM();
 	configUART();
+
 
 
 	LPC_GPIO0->FIOSET |= (1<<22);

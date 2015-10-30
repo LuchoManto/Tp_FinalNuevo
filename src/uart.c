@@ -84,5 +84,8 @@ void UART3_IRQHandler(void)
 		break;
 	case 57:
 		break;
+	case 114:
+		get_RPM();
+		break;
 	}
 }
