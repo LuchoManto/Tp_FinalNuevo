@@ -7,8 +7,10 @@
 
 #include "headers.h"
 #include "uart.h"
+#include "control_motor.h"
 
 uint8_t uartData = 0;
+
 
 void configUART(void)
 {
@@ -53,4 +55,34 @@ void UART3_IRQHandler(void)
 {
 	uartData=LPC_UART3->RBR;
 	enviarUART(uartData);
+	switch(uartData){
+	case 43: //+
+		incrementar_pwm();
+		break;
+	case 45: //-
+		decrementar_pwm();
+		break;
+	case 48: //0
+		arrancar_motor();
+		break;
+	case 49:
+		set_Pwm(700);
+		break;
+	case 50:
+		break;
+	case 51:
+		break;
+	case 52:
+		break;
+	case 53:
+		break;
+	case 54:
+		break;
+	case 55:
+		break;
+	case 56:
+		break;
+	case 57:
+		break;
+	}
 }

@@ -11,6 +11,9 @@
 #endif /* CONTROL_MOTOR_H_ */
 
 void config_PWM(void);
-void arrancar_motor();
+void arrancar_motor(void);
 void set_Pwm(int num);
 void delay(void);
+int get_pwm(void);
+void incrementar_pwm(void);
+void decrementar_pwm(void);
