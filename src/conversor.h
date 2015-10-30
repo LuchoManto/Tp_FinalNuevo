@@ -12,4 +12,5 @@
 
 #endif /* CONVERSOR_H_ */
 
-int valor (void);
+void config_adc(void);
+int valor(void);
