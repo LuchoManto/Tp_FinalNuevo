@@ -64,7 +64,7 @@ int valor (void)
 	LPC_ADC->ADCR &=~ (1<<25); //STAR CONVERSION NOW.
 	LPC_ADC->ADCR &=~ (1<<26);
 
-	while (!(LPC_ADC->ADDR0 & (1<<31)))
+	while (!(LPC_ADC->ADSTAT & (1<<0)))
 	{
 
 	}
@@ -76,7 +76,7 @@ int valor (void)
 	valor_real = (2*valor_convertido) / 4095;
 	valor_enviar = valor_real;
 
-	LPC_ADC->ADCR &=~ (1 << 21); // coloca el ADC en modo operacional
+	LPC_ADC->ADCR &=~ (1 << 21); // coloca el ADC en modo operacional.
 
 	LPC_ADC->ADCR |= (1<<24);
 	LPC_ADC->ADCR &=~ (1<<25);  //STOP ADC.
