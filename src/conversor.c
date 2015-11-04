@@ -48,11 +48,9 @@ float valor (void)
 	int valor;
 	uint8_t valor_convertido;
 	uint8_t valor_convertido1;
+
 	float valor_real;
 	float valor_enviar = 0;
-
-
-	LPC_TIM0 -> IR=1; //bajo la bandera del TIMER0.
 
 	valor =  (LPC_ADC->ADDR0 >> 4) & 0xFFF ; //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
 

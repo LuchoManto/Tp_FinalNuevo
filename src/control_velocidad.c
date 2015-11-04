@@ -19,11 +19,33 @@ short int get_RPM(void)
 
 void config_CAP2(void) // contador de eventos (usa Timer2)
 {
+	LPC_SC->PCONP |= (1 << 22); //habilito Timer2
+
 	LPC_PINCON->PINSEL0 |= (1 << 8);
 	LPC_PINCON->PINSEL0 |= (1 << 9); // habilito P0.4 como CAP2.0
 
-	LPC_TIM2->CCR |= 1; // timer0 en modo Counter a flanco de subida
+	LPC_PINCON->PINMODE0 &= ~(1 << 8);
+	LPC_PINCON->PINMODE0 |= (1 << 9); // P0.4 sin pull up ni pull down
+
+
+	LPC_TIM2->CCR &= ~(1 << 0);
+	LPC_TIM2->CCR &= ~(1 << 1);
+	LPC_TIM2->CCR &= ~(1 << 2);
+
+	LPC_TIM2->CTCR |= (1 << 0);
+	LPC_TIM2->CTCR &= ~(1 << 1); // timer2 en modo Counter a flanco de subida
+
+	LPC_TIM2->CTCR &= ~(1 << 2);
+	LPC_TIM2->CTCR &= ~(1 << 3);
 	//los bits 2 y 3 son 00, por lo que el capture se toma en el pin CAP0.0, o sea el pin P0.4
+
+//	LPC_TIM2->MCR |= (1 << 3); // MATCH0 interrumpe
+	//LPC_TIM2->MCR |= (1 << 4); //MATCH0 resetea
+	//LPC_TIM2->MR1 = 5; // DESPUES DE 5 EVENTOS, SE RESETEA.
+
+	//NVIC_EnableIRQ(TIMER2_IRQn); //habilito interrupcion
+
+	LPC_TIM2 -> TC = 0; // reseteo TC
 
 
 	LPC_TIM2 -> TCR |= (1 << 1);		//Reseteo timer

@@ -14,6 +14,8 @@
 #include "conversor.h"
 #include "control_velocidad.h"
 
+
+
 int main(void) {
 
     LPC_GPIO0->FIODIR |= (1<<22);
@@ -21,6 +23,7 @@ int main(void) {
 
 	//config_CAP2();
 	//config_TMR1();
+	config_PWM();
 	config_adc();
 	configUART();
 

@@ -58,50 +58,54 @@ void UART3_IRQHandler(void)
 {
 	uartData=LPC_UART3->RBR;
 	enviarUART(uartData);
+	enviarUART('-');
+	enviarUART('O');
+	enviarUART('K');
+	enviarUART(10);
 	switch(uartData){
-	case 43: //+
+	case '+': //+
 		incrementar_pwm();
 		break;
-	case 45: //-
+	case '-': //-
 		decrementar_pwm();
 		break;
-	case 48: //0
+	case '0': //0
 		set_Pwm(700);
 		break;
-	case 49: //1
+	case '1': //1
 		arrancar_motor();
 		break;
-	case 50: //2
+	case '2': //2
 		set_Pwm(1100);
 		break;
-	case 51: //3
+	case '3': //3
 		set_Pwm(1120);
 		break;
-	case 52: //4
+	case '4': //4
 		set_Pwm(1140);
 		break;
-	case 53: //5
+	case '5': //5
 		set_Pwm(1160);
 		break;
-	case 54:  //6
+	case '6':  //6
 		set_Pwm(1180);
 		break;
-	case 55:  //7
+	case '7':  //7
 		set_Pwm(1200);
 		break;
-	case 56: //8
+	case '8': //8
 		set_Pwm(1220);
 		break;
-	case 57: //9
+	case '9': //9
 		set_Pwm(1250);
 		break;
-	case 114: //r
+	case 'r': //r
 		valorrpm = get_RPM();
 		valorrpm = valorrpm;
 		break;
-	case 97: //a
-			valoradc = valor();
-			valoradc=valoradc;
-			break;
+	case 'a': //a
+		valoradc = valor();
+		valoradc=valoradc;
+		break;
 	}
 }
