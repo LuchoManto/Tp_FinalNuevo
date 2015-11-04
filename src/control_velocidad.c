@@ -14,7 +14,7 @@ short int rpm;
 void config_control_vel()
 {
 	config_CAP2();
-	config_TMR1();
+	//config_TMR1();
 }
 
 short int get_RPM(void)
@@ -90,4 +90,23 @@ void TIMER1_IRQHandler(void)
 	// aca hay que obtener el valor del TC de timer0, que basicamente tiene la cantidad de eventos en 100ms
 	// una vez que hice lo que tengo que hacer con el valor del TC de timer0, lo reseteo
 
+}
+
+void configs_TMR0(void) // base de tiempo
+{
+
+	LPC_TIM0 -> MCR |= (1<<4);	//que interrumpa el cr0
+
+	LPC_TIM0 -> CCR |= (1<<0); //rising edge
+	LPC_TIM0 -> CCR |= (1<<2); // interrupt
+
+	LPC_TIM0 -> TC = 0;
+
+	NVIC_EnableIRQ(TIMER0_IRQn); //habilito interrupcion
+}
+
+//Handler de la base de tiempo
+void TIMER0_IRQHandler(void)
+{
+	LPC_TIM0 -> TC = 0; // reseteo timer2
 }
