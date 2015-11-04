@@ -77,6 +77,8 @@ void TIMER1_IRQHandler(void)
 
 	rpm = (short int)LPC_TIM2 -> TC * 60;
 
+	LPC_TIM2 -> TC = 0; // reseteo timer2
+
 	// aca hay que obtener el valor del TC de timer0, que basicamente tiene la cantidad de eventos en 100ms
 	// una vez que hice lo que tengo que hacer con el valor del TC de timer0, lo reseteo
 
