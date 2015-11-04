@@ -10,6 +10,11 @@
 
 
 int bandera_adc;
+int valor_convertido;
+float valor_real;
+int valor_enviar;
+
+
 
 void config_adc(void)
 {
@@ -21,66 +26,43 @@ void config_adc(void)
 	LPC_SC->PCLKSEL0 &= ~(1 << 24);
 	LPC_SC->PCLKSEL0 &= ~(1 << 25); // selecciono clock de adc en sysclock / 4
 
-	LPC_ADC->ADCR |= (1 << 21); // coloca el ADC en modo operacional
+	LPC_ADC->ADCR |= (1 << 21); // coloca el ADC en modo power-down.
+
+	LPC_ADC->ADCR |=(1<<16); //ADC en modo Burst.
 
 	LPC_ADC->ADCR |= (1 << 8); // coloco el divisor de clock del adc en 1 para que se divida 25 / 2 y de 12,5 que es < 13
 
 	LPC_PINCON->PINSEL0 |= (1 << 14);
 	LPC_PINCON->PINSEL0 &= ~(1 << 15); //bits 14 y 15 de pinsel0 en "01" hacen que P0.23 sea AD0.0
 
-	//LPC_PINCON->PINMODE1 |= (1 << 15); //configuro el pin de entrada de modo que no tenga ni pull down ni pull up
+	LPC_PINCON->PINMODE1 |= (1 << 15); //configuro el pin de entrada de modo que no tenga ni pull down ni pull up
 
-	LPC_ADC->ADCR |= (1 << 16); //habilita el bit de interrupcion del ADC
+	//LPC_ADC->ADCR |= (1 << 16); //habilita el bit de interrupcion del ADC
 	//LPC_ADC->ADCR |= (1 << 26); //comenzar conversion cuando hay flanco en MATCH 1 de Timer0
-	LPC_ADC->ADCR &= ~(1 << 27); //flanco de subida activa la conversion
+	//LPC_ADC->ADCR &= ~(1 << 27); //flanco de subida activa la conversion
 
-	//NVIC_IRQEnable (ADC_IRQn);
-}
-
-
-/*void ADC_IRQHandler()
-{
-	bandera_adc = 1;
-
-//	LPC_ADC->ADSTAT &= ~ (1<<16); // se baja la bandera de interrupcion del adc
-	if(LPC_ADC->ADSTAT & 1)
-		LPC_ADC->ADDR0; // si la bandera que se subio era la del canal 0, se baja el bit de DONE correspondiente
 
 }
-*/
-
-//comience conversion, mida, envie el dato y desactivar el ADC.
-
-int valor (void)
+float valor (void)
 {
-
-	int valor_convertido;
+	int valor;
+	uint8_t valor_convertido;
+	uint8_t valor_convertido1;
 	float valor_real;
-	int valor_enviar = 0;
+	float valor_enviar = 0;
 
-	LPC_ADC->ADCR |= (1 << 21); // coloca el ADC en modo operacional
 
-	LPC_ADC->ADCR |= (1<<24);
-	LPC_ADC->ADCR &=~ (1<<25); //STAR CONVERSION NOW.
-	LPC_ADC->ADCR &=~ (1<<26);
+	LPC_TIM0 -> IR=1; //bajo la bandera del TIMER0.
 
-	while (!(LPC_ADC->ADSTAT & 1))
-	{
+	valor =  (LPC_ADC->ADDR0 >> 4) & 0xFFF ; //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
 
-	}
-	valor_convertido = 0xFFF & ((int)LPC_ADC->ADDR0 << 4); //meto en valor_convertido los bit entre 4 y 15 del ADDR0.
-
+	valor_convertido =  valor & 0xFF;
+	valor_convertido1 =  (valor >> 8) & 0xF;
 	// valor real == (Vref+ - Vref-) * valor convertido /(2^resolucion - 1)
 	// valor real == 2*valor convertido / 4095
 
-	valor_real = (2*valor_convertido) / 4095;
+	valor_real = (3.3*valor) / 4095;
 	valor_enviar = valor_real;
-
-	LPC_ADC->ADCR &=~ (1 << 21); // coloca el ADC en modo operacional.
-
-	LPC_ADC->ADCR |= (1<<24);
-	LPC_ADC->ADCR &=~ (1<<25);  //STOP ADC.
-	LPC_ADC->ADCR &=~ (1<<26);
 
 	return valor_enviar;
 }

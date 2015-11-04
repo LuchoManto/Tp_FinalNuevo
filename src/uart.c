@@ -12,7 +12,7 @@
 #include "control_velocidad.h"
 
 uint8_t uartData = 0;
-int valoradc;
+float valoradc;
 short int valorrpm;
 
 void configUART(void)
