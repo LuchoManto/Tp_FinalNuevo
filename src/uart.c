@@ -59,6 +59,10 @@ void enviarUART(uint8_t c)
 
 void UART3_IRQHandler(void)
 {
+	int subtotal;
+	int veces;
+	int j;
+
 	uartData=LPC_UART3->RBR;
 
 	switch(uartData){
@@ -113,13 +117,12 @@ void UART3_IRQHandler(void)
 	case 'r':
 		valorrpm = get_RPM();
 		valorrpm = valorrpm;
-		enviar_ok('r');
+		enviar_int(valorrpm);
 		break;
 	case 'a':
-		int subtotal = 0;
-		int veces = 50;
-		int j;
-		for(j = 0; j < veces; j++)
+		subtotal = 0;
+		veces = 50;
+		for(j=0; j<veces; j++)
 		{
 			subtotal = subtotal + valor_sensor();
 		}

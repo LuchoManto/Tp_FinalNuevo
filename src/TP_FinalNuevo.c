@@ -24,8 +24,8 @@ int main(void) {
 	motorOn_init();
 	motor_prender();
 
-	//config_control_vel();
-	configs_TMR0();
+	config_control_vel();
+	//configs_TMR2();
 	config_PWM();
 	config_adc();
 	configUART();

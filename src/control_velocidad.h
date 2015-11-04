@@ -19,4 +19,4 @@ short int get_RPM(void);
 void config_control_vel();
 
 
-void configs_TMR0(void);
+void configs_TMR2(void);

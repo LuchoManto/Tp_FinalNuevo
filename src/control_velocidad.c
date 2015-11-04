@@ -14,7 +14,7 @@ short int rpm;
 void config_control_vel()
 {
 	config_CAP2();
-	//config_TMR1();
+	config_TMR1();
 }
 
 short int get_RPM(void)
@@ -71,7 +71,7 @@ void config_TMR1(void) // base de tiempo
 
 	LPC_TIM1 -> MR1 = 2500000; // base de tiempo de 1000ms
 
-	NVIC_EnableIRQ(TIMER0_IRQn); //habilito interrupcion
+	NVIC_EnableIRQ(TIMER1_IRQn); //habilito interrupcion
 
 	LPC_TIM1 -> TCR |= (1 << 1);		//Reseteo timer
 	LPC_TIM1 -> TCR &= ~(1 << 1);		//Reseteo timer
@@ -92,21 +92,30 @@ void TIMER1_IRQHandler(void)
 
 }
 
-void configs_TMR0(void) // base de tiempo
+/*
+void configs_TMR2(void) // base de tiempo
 {
+	LPC_SC->PCONP |= (1 << 22); //habilito Timer2
 
-	LPC_TIM0 -> MCR |= (1<<4);	//que interrumpa el cr0
+	LPC_PINCON->PINSEL0 |= (1 << 8);
+	LPC_PINCON->PINSEL0 |= (1 << 9); // habilito P0.4 como CAP2.0
 
-	LPC_TIM0 -> CCR |= (1<<0); //rising edge
-	LPC_TIM0 -> CCR |= (1<<2); // interrupt
+	LPC_PINCON->PINMODE0 &= ~(1 << 8);
+	LPC_PINCON->PINMODE0 |= (1 << 9); // P0.4 sin pull up ni pull down
 
-	LPC_TIM0 -> TC = 0;
+	LPC_TIM2 -> MCR |= (1<<4);	//que interrumpa el cr0
 
-	NVIC_EnableIRQ(TIMER0_IRQn); //habilito interrupcion
+	LPC_TIM2 -> CCR |= (1<<0); //rising edge
+	LPC_TIM2 -> CCR |= (1<<2); // interrupt
+
+	LPC_TIM2 -> TC = 0;
+
+	NVIC_EnableIRQ(TIMER2_IRQn); //habilito interrupcion
 }
 
 //Handler de la base de tiempo
-void TIMER0_IRQHandler(void)
+void TIMER2_IRQHandler(void)
 {
-	LPC_TIM0 -> TC = 0; // reseteo timer2
+	LPC_TIM2 -> TC = 0; // reseteo timer2
 }
+*/
