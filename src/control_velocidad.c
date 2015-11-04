@@ -11,6 +11,12 @@
 
 short int rpm;
 
+void config_control_vel()
+{
+	config_CAP2();
+	config_TMR1();
+}
+
 short int get_RPM(void)
 {
 	return rpm;

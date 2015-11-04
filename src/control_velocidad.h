@@ -16,3 +16,4 @@
 void config_CAP2(void);
 void config_TMR1(void);
 short int get_RPM(void);
+void config_control_vel();
