@@ -64,16 +64,16 @@ void config_TMR1(void) // base de tiempo
 	LPC_SC->PCLKSEL0 &=~ (1 << 2);
 	LPC_SC->PCLKSEL0 &=~ (1 << 3); // F = CLK/4
 
-	LPC_TIM0 -> MCR |= (1<<3);	//que interrumpa el match1
-	LPC_TIM0 -> MCR |= (1<<4);	//que resetee el timer cuando llegue
+	LPC_TIM1 -> MCR |= (1<<3);	//que interrumpa el match1
+	LPC_TIM1 -> MCR |= (1<<4);	//que resetee el timer cuando llegue
 
-	LPC_TIM0 -> MR1 = 2500000; // base de tiempo de 1000ms
+	LPC_TIM1 -> MR1 = 2500000; // base de tiempo de 1000ms
 
 	NVIC_EnableIRQ(TIMER0_IRQn); //habilito interrupcion
 
-	LPC_TIM0 -> TCR |= (1 << 1);		//Reseteo timer
-	LPC_TIM0 -> TCR &= ~(1 << 1);		//Reseteo timer
-	LPC_TIM0 -> TCR |= (1 << 0);		//arranco timer
+	LPC_TIM1 -> TCR |= (1 << 1);		//Reseteo timer
+	LPC_TIM1 -> TCR &= ~(1 << 1);		//Reseteo timer
+	LPC_TIM1-> TCR |= (1 << 0);		//arranco timer
 }
 
 //Handler de la base de tiempo
