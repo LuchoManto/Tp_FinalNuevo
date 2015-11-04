@@ -9,9 +9,6 @@
 void motorOn_init()
 {
 	LPC_GPIO0->FIODIR |= (1 << MOTOR); // pin P0.5 habilitado
-
-	LPC_PINCON->PINMODE0 |= (1 << 10);
-	LPC_PINCON->PINMODE0 |= (1 << 11); // pin P0.5 en modo pull-down
 }
 void motor_prender()
 {
