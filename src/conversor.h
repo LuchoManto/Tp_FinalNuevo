@@ -13,6 +13,6 @@
 #endif /* CONVERSOR_H_ */
 
 void config_adc(void);
-float valor(void);
+int valor_sensor(void);
 
 

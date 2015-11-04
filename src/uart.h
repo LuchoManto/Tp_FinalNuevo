@@ -12,3 +12,4 @@
 
 void configUART(void);
 void enviarUART(uint8_t c);
+void enviar_int(int valor);

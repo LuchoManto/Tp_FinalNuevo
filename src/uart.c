@@ -11,8 +11,11 @@
 #include "conversor.h"
 #include "control_velocidad.h"
 
+void enviar_numero(char valor);
+void enviar_ok(char funcion);
+
 uint8_t uartData = 0;
-float valoradc;
+int valorsensor;
 short int valorrpm;
 
 void configUART(void)
@@ -57,55 +60,134 @@ void enviarUART(uint8_t c)
 void UART3_IRQHandler(void)
 {
 	uartData=LPC_UART3->RBR;
-	enviarUART(uartData);
+
+	switch(uartData){
+	case '+':
+		incrementar_pwm();
+		enviar_ok('+');
+		break;
+	case '-':
+		decrementar_pwm();
+		enviar_ok('-');
+		break;
+	case '0':
+		set_Pwm(700);
+		enviar_ok('0');
+		break;
+	case '1':
+		arrancar_motor();
+		enviar_ok('1');
+		break;
+	case '2':
+		set_Pwm(1100);
+		enviar_ok('2');
+		break;
+	case '3':
+		set_Pwm(1120);
+		enviar_ok('3');
+		break;
+	case '4':
+		set_Pwm(1140);
+		enviar_ok('4');
+		break;
+	case '5':
+		set_Pwm(1160);
+		enviar_ok('5');
+		break;
+	case '6':
+		set_Pwm(1180);
+		enviar_ok('6');
+		break;
+	case '7':
+		set_Pwm(1200);
+		enviar_ok('7');
+		break;
+	case '8':
+		set_Pwm(1220);
+		enviar_ok('8');
+		break;
+	case '9':
+		set_Pwm(1250);
+		enviar_ok('9');
+		break;
+	case 'r':
+		valorrpm = get_RPM();
+		valorrpm = valorrpm;
+		enviar_ok('r');
+		break;
+	case 'a':
+		valorsensor = valor_sensor();
+		enviar_int(valorsensor);
+		break;
+	}
+}
+
+
+//Envia un int de hasta  4 cifras
+void enviar_int(int valor)
+{
+	int n=4;
+	int i;
+	char numberArray[4];
+
+	for ( i=0; i<n; ++i)
+	{
+		numberArray[i] = valor % 10;
+		valor = valor/10;
+	}
+
+	for ( i=4; i>0; i--)
+	{
+		enviar_numero(numberArray[i-1]);
+
+	}
+
+	enviarUART(10);
+}
+
+//Transforma un numero char en ascii
+void enviar_numero(char valor)
+{
+	switch(valor)
+	{
+		case 0:
+			enviarUART('0');
+			break;
+		case 1:
+			enviarUART('1');
+			break;
+		case 2:
+			enviarUART('2');
+			break;
+		case 3:
+			enviarUART('3');
+			break;
+		case 4:
+			enviarUART('4');
+			break;
+		case 5:
+			enviarUART('5');
+			break;
+		case 6:
+			enviarUART('6');
+			break;
+		case 7:
+			enviarUART('7');
+			break;
+		case 8:
+			enviarUART('8');
+			break;
+		case 9:
+			enviarUART('9');
+			break;
+	}
+}
+
+void enviar_ok(char funcion)
+{
+	enviarUART(funcion);
 	enviarUART('-');
 	enviarUART('O');
 	enviarUART('K');
 	enviarUART(10);
-	switch(uartData){
-	case '+': //+
-		incrementar_pwm();
-		break;
-	case '-': //-
-		decrementar_pwm();
-		break;
-	case '0': //0
-		set_Pwm(700);
-		break;
-	case '1': //1
-		arrancar_motor();
-		break;
-	case '2': //2
-		set_Pwm(1100);
-		break;
-	case '3': //3
-		set_Pwm(1120);
-		break;
-	case '4': //4
-		set_Pwm(1140);
-		break;
-	case '5': //5
-		set_Pwm(1160);
-		break;
-	case '6':  //6
-		set_Pwm(1180);
-		break;
-	case '7':  //7
-		set_Pwm(1200);
-		break;
-	case '8': //8
-		set_Pwm(1220);
-		break;
-	case '9': //9
-		set_Pwm(1250);
-		break;
-	case 'r': //r
-		valorrpm = get_RPM();
-		valorrpm = valorrpm;
-		break;
-	case 'a': //a
-		valoradc = valor();
-		valoradc=valoradc;
-		break;
-	}
 }
