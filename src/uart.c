@@ -116,7 +116,14 @@ void UART3_IRQHandler(void)
 		enviar_ok('r');
 		break;
 	case 'a':
-		valorsensor = valor_sensor();
+		int subtotal = 0;
+		int veces = 50;
+		int j;
+		for(j = 0; j < veces; j++)
+		{
+			subtotal = subtotal + valor_sensor();
+		}
+		valorsensor = subtotal / veces;
 		enviar_int(valorsensor);
 		break;
 	}

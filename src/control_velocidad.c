@@ -61,6 +61,8 @@ void config_CAP2(void) // contador de eventos (usa Timer2)
 
 void config_TMR1(void) // base de tiempo
 {
+	LPC_SC->PCONP |= (1 << 2); //habilito Timer1
+
 	LPC_SC->PCLKSEL0 &=~ (1 << 2);
 	LPC_SC->PCLKSEL0 &=~ (1 << 3); // F = CLK/4
 
