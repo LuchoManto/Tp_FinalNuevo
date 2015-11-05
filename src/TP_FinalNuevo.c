@@ -13,6 +13,7 @@
 #include "control_motor.h"
 #include "conversor.h"
 #include "control_velocidad.h"
+#include "teclado.h"
 
 
 
@@ -24,6 +25,7 @@ int main(void) {
 	motorOn_init();
 	motor_prender();
 
+	config_teclado();
 	config_control_vel();
 	//configs_TMR2();
 	config_PWM();

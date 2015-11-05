@@ -11,6 +11,7 @@
 void motorOn_init()
 {
 	LPC_GPIO0->FIODIR |= (1 << MOTOR); // pin P0.5 habilitado
+	motor_apagar(); // apagado desde el inicio
 }
 void motor_prender()
 {
