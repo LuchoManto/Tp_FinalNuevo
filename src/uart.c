@@ -66,13 +66,13 @@ void UART3_IRQHandler(void)
 	uartData=LPC_UART3->RBR;
 
 	switch(uartData){
-	case '+':
+	case 'i':
 		incrementar_pwm();
-		enviar_ok('+');
+		enviar_ok('i');
 		break;
-	case '-':
+	case 'd':
 		decrementar_pwm();
-		enviar_ok('-');
+		enviar_ok('d');
 		break;
 	case '0':
 		set_Pwm(700);

@@ -27,7 +27,6 @@ int main(void) {
 
 	config_teclado();
 	config_control_vel();
-	//configs_TMR2();
 	config_PWM();
 	config_adc();
 	configUART();

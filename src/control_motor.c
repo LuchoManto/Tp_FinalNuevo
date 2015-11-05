@@ -70,3 +70,10 @@ void delay(void)
 	for(i=0; i<25000000; i++)
 	{}
 }
+
+void delay1(int delays)
+{
+	int i=0;
+	for(i=0; i<delays; i++)
+	{}
+}

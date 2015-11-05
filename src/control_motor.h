@@ -18,3 +18,4 @@ int get_pwm(void);
 void incrementar_pwm(void);
 void decrementar_pwm(void);
 void enviar_int(int valor);
+void delay1(int delays);

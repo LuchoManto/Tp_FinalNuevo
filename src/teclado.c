@@ -23,9 +23,7 @@
 
 #define cuenta 1000000
 
-//Arreglo con los pines del puerto 0 para cada segmento
-//segmentos: {g,f,e,d,c,b,a}
-const int SEGS[7] = {7,6,0,1,18,17,15};
+
 
 
 //Puertos teclado
@@ -114,22 +112,31 @@ void config_eint2(void)
 // Handler de la interrupcion por boton.
 void EINT0_IRQHandler(void) {
 	decodificar(0);
+	LPC_GPIO0 ->FIOSET = (1<<22);
 
-	LPC_SC->EXTINT &= ~(1 << 0); //bajamos la bandera al salir
+	while(!(LPC_GPIO2->FIOPIN & (1<<COL_T[0]))){}
+
+	LPC_SC->EXTINT |= (1 << 0); //bajamos la bandera al salir
 }
 
 // Handler de la interrupcion por boton.
 void EINT1_IRQHandler(void) {
 	decodificar(1);
+	LPC_GPIO0 ->FIOSET = (1<<22);
 
-	LPC_SC->EXTINT &= ~(1 << 1); //bajamos la bandera al salir
+	while(!(LPC_GPIO2->FIOPIN & (1<<COL_T[1]))){}
+
+	LPC_SC->EXTINT |= (1 << 1); //bajamos la bandera al salir
 }
 
 // Handler de la interrupcion por boton.
 void EINT2_IRQHandler(void) {
 	decodificar(2);
+	LPC_GPIO0 ->FIOSET = (1<<22);
 
-	LPC_SC->EXTINT &= ~(1 << 2); //bajamos la bandera al salir
+	while(!(LPC_GPIO2->FIOPIN & (1<<COL_T[2]))){}
+
+	LPC_SC->EXTINT |= (1 << 2); //bajamos la bandera al salir
 }
 
 
@@ -165,38 +172,45 @@ void teclado_1(void)
 //Funcion para ver que tecla se presiono.
 void decodificar(int col)
 {
+	LPC_GPIO0 ->FIOCLR = (1<<22);
+
 	//Pongo todas las salidas en 1.(filas)
 	teclado_1();
 	//Pongo en 0 la primera fila.
 	int i;
 	for(i=0; i<3; i++)
 	{
-		LPC_GPIO0->FIOCLR = (1 << FILAS_T[i]);
+		LPC_GPIO2->FIOCLR = (1 << FILAS_T[i]);
+		delay1(10000);
 		//Hay 0 en la columna que corresponde?
 		if(!(LPC_GPIO2->FIOPIN & (1<<COL_T[col])))
 		{
 			teclado_0();
 			set_velocidad_teclado((col+1)+(i*3));
+			return;
 		}
 	}
-	LPC_GPIO0->FIOCLR = (1 << FILAS_T[3]);
+	LPC_GPIO2->FIOCLR = (1 << FILAS_T[3]);
 	if(!(LPC_GPIO2->FIOPIN & (1<<COL_T[col])))
 	{
 		teclado_0();
 		if(col == 0)
 		{
 			set_velocidad_teclado(10); // tecla *
+			return;
 		}
 		if(col == 1)
 		{
 			set_velocidad_teclado(0);
+			return;
 		}
 		if(col == 2)
 		{
 			set_velocidad_teclado(11); // tecla #
+			return;
 		}
-		return;
 	}
+	return;
 
 }
 
@@ -207,51 +221,39 @@ void set_velocidad_teclado(int vel)
 	{
 			case 0:
 				set_Pwm(700);
-				enviar_ok('0');
 				break;
 			case 1:
 				arrancar_motor();
-				enviar_ok('1');
 				break;
 			case 2:
 				set_Pwm(1100);
-				enviar_ok('2');
 				break;
 			case 3:
 				set_Pwm(1120);
-				enviar_ok('3');
 				break;
 			case 4:
 				set_Pwm(1140);
-				enviar_ok('4');
 				break;
 			case 5:
 				set_Pwm(1160);
-				enviar_ok('5');
 				break;
 			case 6:
 				set_Pwm(1180);
-				enviar_ok('6');
 				break;
 			case 7:
 				set_Pwm(1200);
-				enviar_ok('7');
 				break;
 			case 8:
 				set_Pwm(1220);
-				enviar_ok('8');
 				break;
 			case 9:
 				set_Pwm(1250);
-				enviar_ok('9');
 				break;
 			case 10:
-				incrementar_pwm();
-				enviar_ok('+');
+				decrementar_pwm();
 				break;
 			case 11:
-				decrementar_pwm();
-				enviar_ok('-');
+				incrementar_pwm();
 				break;
 	}
 }
