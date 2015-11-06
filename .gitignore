@@ -5,6 +5,7 @@
 !.gitignore
 !*.c
 !*.h
+!*.tex
 # etc...
 
 # ...even if they are in subdirectories

@@ -1,0 +1,202 @@
+%--------------------------------------------------------------
+%     Ejemplo de un artículo con LaTeX
+%--------------------------------------------------------------
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+%para usar hipertexto en las referencias
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+%para incluir graficos
+\usepackage{graphicx}
+%para permitir que la imagen este donde yo quiero y no en otro lugar
+\usepackage{float}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Año 2015}
+\lhead{Trabajo Final}
+\rfoot{Pagina \thepage}
+\lfoot{Electronica Digital III}
+
+\graphicspath{ {Imagenes/} }
+
+
+%--------------------------------------------------------------
+\title{\underline{Electronica Digital III} \\
+\huge \textbf{ \\ Trabajo Final} \\ }
+\author{Autores: Ignacio Sambataro, Luciano Mantovani, Gaston Lucero Berrini\\ \\
+  \large Profesores: Luis Alberto Murgio, Julio Sanchez \\
+ % \small Facultad de Ciencias Exactas, Físicas y Naturales\\
+ % \small Laboratorio de Arquitectura de Computadoras\\
+ % \small Universidad Nacional de Cordoba\\
+  \date{}
+}
+%--------------------------------------------------------------
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+\thispagestyle{empty}
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm, height = 3.5cm]{Escudo}
+\end{figure}
+
+\begin{center}
+\small Facultad de Ciencias Exactas, Físicas y Naturales
+\end{center}
+
+\begin{center}
+\small Laboratorio de Arquitectura de Computadoras
+\end{center}
+
+\begin{center}
+\small Año 2015 \\
+\end{center}
+
+\pagebreak
+
+\thispagestyle{empty}
+%resumen
+\abstract{aca hay que decir que basicamente es un trabajo final hecho para la catedra de digitales 3. lo hicimos con una lpc1769 y trabajamos haciendo funcionar todos los aspectos de un sensor de campo electrostatico, que requiere de un motor regulado a velocidades determinadas para funcionar. con las distintas funcionalidades de la LPC se pudo no solamente hacer andar el motor, sino tambien interpretar todos los datos que brinda, tanto de la velocidad del motor como las mediciones de campo electrico que responde}
+
+%salto de página
+\thispagestyle{empty}
+\clearpage
+\thispagestyle{empty}
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+\setcounter{page}{1}
+
+%--------------------------------------------------------------
+
+\section{Introduccion} % (fold)
+\label{sec:introduccion}
+
+una breve introduccion del trabajo. cuales son los modulos de la LPC que usamos. como los usamos. 
+
+% section introduccion (end)
+
+\section{Marco teorico} % (fold)
+\label{sec:marco_teorico}
+
+como funciona un sensor de campo electrostatico? como funciona ESTE sensor? porque se necesita un motor para hacerlo funcionar? porque las distintas velocidades de un motor dan distintas respuestas? porque me interesa variar la velocidad del motor? 
+
+que detecta realmente el sensor? que hago con la informacion que me da?
+
+% section marco_teorico (end)
+
+\section{Desarrollo} % (fold)
+\label{sec:desarrollo}
+
+que hicimos? por donde arrancamos?
+
+
+\subsection{Modulos Utilizados} % (fold)
+\label{sub:modulos_utilizados}
+
+cuales son los modulos utilizados y porque? 
+
+\subsubsection{Modulo PWM} % (fold)
+\label{ssub:modulo_pwm}
+
+breve descripcion del modulo pwm y como lo usamos
+
+% subsubsection modulo_pwm (end)
+
+\subsubsection{Modulo Timer} % (fold)
+\label{ssub:modulo_timer}
+
+breve descripcion del modulo timer y como lo usamos
+
+% subsubsection modulo_timer (end)
+
+\subsubsection{Modulo Conversor Analogico-Digital} % (fold)
+\label{ssub:modulo_conversor_analogico_digital}
+
+breve descripcion del modulo adc y como lo usamos
+
+% subsubsection modulo_conversor_analogico_digital (end)
+
+\subsubsection{Modulo de interrupciones externas y teclado matricial} % (fold)
+\label{ssub:modulo_de_interrupciones_externas_y_teclado_matricial}
+
+breve descripcion del modulo de interrupciones externas, del teclado matricial y como lo usamos
+
+% subsubsection modulo_de_interrupciones_externas_y_teclado_matricial (end)
+
+\subsubsection{Modulo UART} % (fold)
+\label{ssub:modulo_uart}
+
+breve descripcion del modulo UART y como lo usamos
+
+% subsubsection modulo_uart (end)
+
+% subsection modulos_utilizados (end)
+
+\subsection{Comunicacion con Wi-Fi mediante servidor Web} % (fold)
+\label{sub:comunicacion_con_wi_fi_mediante_servidor_web}
+
+aca explicar todo lo hecho con python y el servidor web que se comunica con el modulo UART
+
+% subsection comunicacion_con_wi_fi_mediante_servidor_web (end)
+
+\section{Funcionamiento del programa} % (fold)
+\label{sec:funcionamiento_del_programa}
+
+Desde que se inicia, el sistema se configura automaticamente, pero necesita de interaccion humana para arrancar y medir tanto las RPM como las mediciones, o cambiar la velocidad del motor.
+
+\subsection{Inicio} % (fold)
+\label{sub:inicio}
+
+En el inicio hace todas las configuraciones pertinentes, y despues queda en espera a una accion del usuatio
+
+% subsection inicio (end)
+
+\subsection{interaccion con el usuario} % (fold)
+\label{sub:interaccion_con_el_usuario}
+
+como hace el usuario para interactuar con el sistema?. lo puede hacer por teclado o mediante el servidor.. que permite esto?? acceso local y remoto.. etc
+
+% subsection interaccion_con_el_usuario (end)
+
+\subsection{Apagado} % (fold)
+\label{sub:apagado}
+
+como haces para apagar el motor? como haces para apagar el sistema?
+
+% subsection apagado (end)
+
+% section funcionamiento_del_programa (end)
+
+
+\section{Conclusiones} % (fold)
+\label{sec:conclusiones}
+
+la fruta mas fruta de las frutas fruteras de la fruta
+
+% section conclusiones (end)
+
+% section desarrollo (end)
+
+
+
+
+
+
+
+ \end{document} 
