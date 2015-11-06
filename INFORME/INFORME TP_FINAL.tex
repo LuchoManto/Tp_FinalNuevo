@@ -98,9 +98,21 @@ Es necesario, para el funcionamiento del sensor, que se utilice un motor de cont
 \section{Marco teorico} % (fold)
 \label{sec:marco_teorico}
 
-como funciona un sensor de campo electrostatico? como funciona ESTE sensor? porque se necesita un motor para hacerlo funcionar? porque las distintas velocidades de un motor dan distintas respuestas? porque me interesa variar la velocidad del motor? 
 
-que detecta realmente el sensor? que hago con la informacion que me da?
+
+%como funciona un sensor de campo electrostatico? como funciona ESTE sensor? porque se necesita un motor para hacerlo funcionar? porque las distintas velocidades de un motor dan distintas respuestas? porque me interesa variar la velocidad del motor? 
+
+%que detecta realmente el sensor? que hago con la informacion que me da?
+
+El sensor de campo electrostatico es una estructura metalica compuesta por un motor que hace girar unas aspas que se se encargan de blindar y desblindar una placa que a su vez se carga y descarga con la electricidad estatica del ambiente. esta carga y descarga continua es lo que justamente se termina transformando en el nivel de voltaje que nos indica el nivel de electricidad estatica del ambiente, que es lo que queremos saber. Si imaginamos a la placa y a las aspas como un capacitor que se blinda y desblinda es mas facil. En el momento que las aspas estan descuburiendo la placa, el capacitor se carga, y en el momento que se cubre la placa, el capacitor se descarga. La descarga se hace sobre un amplificador que luego va a un conversor analogico digital, que termina en la lectura de un valor que nos dice el nivel del campo electrostatico ambiental.
+
+\linebreak
+
+La intensidad de un campo electrico se puede medir, en principio, colcando un medidor de voltaje entre dos placas metalicas paralelas separadas por una distancia. El problema de esto es que, como el medidor de voltaje suele tener una impedancia alta en la entrada, cualquier voltaje inducido en las placas se pierde rapidamente, y no podria usarse para medir el capo electrico. Para arreglar esto, se utiliza la tecnica de las aspas. Se coloca una placa conductora, y sobre la misma se posiciona un sistema con aspas de forma que cuando estas roten, se cubra y se exponga periodicamente la placa conductora al campo electrico ambiental. Para lograr esto apropiadamente, el rotor que hace girar las aspas debe estar conectado a tierra. La placa conductora esta conectada a tierra a traves de un amplificador de transconductancia, que convierte la corriente que va desde la placa a tierra en una tension. A medida que la placa conductora este expuesta al campo electrico, el campo induce una corriente a tierra mientras que atrae o repele la carga de la placa conductora. A medida que la placa esta cubierta del campo electrico, la carga inducida se drena. Entonces las placas inducen una corriente alterna a masa que es proporcional a la intensidad del campo electrico estatico. Esta corriente alterna luego puede ser rectificada para utilizarla como entrada a un conversor analogico digital y obtener asi la intensidad del campo electrico medido.
+
+\linebreak
+
+Para asegurar la integridad de los datos medidos, es necesario que la velocidad de las aspas sea constante, ya que una variacion en la velocidad puede afectar el periodo con el que se mide el campo electrico y puede afectar directamente a la medicion. Un control minimo de velocidad sobre la velocidad del motor puede ser suficiente para que los datos leidos sean confiables.
 
 % section marco_teorico (end)
 
