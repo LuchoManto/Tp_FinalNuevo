@@ -83,7 +83,7 @@ void TIMER1_IRQHandler(void)
 {
 	LPC_TIM1 -> IR |= (1<<0); // Limpio bandera de interrupcion MR1
 
-	rpm = (short int)LPC_TIM2 -> TC * 60;
+	rpm = ((short int)LPC_TIM2 -> TC * 60) / 4;
 
 	LPC_TIM2 -> TC = 0; // reseteo timer2
 

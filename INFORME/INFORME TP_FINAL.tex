@@ -147,12 +147,33 @@ que hicimos? por donde arrancamos?
 \subsection{Modulos Utilizados} % (fold)
 \label{sub:modulos_utilizados}
 
-% cuales son los modulos utilizados y porque? 
+% cuales son los modulos utilizados y porque?
+Para la implementacion del sistema, hicimos uso de distintos modulos de la placa de desarrollo LPC1769. Estos fueron:
+
+\begin{itemize}
+ 	\item PWM
+ 	\item Timers
+ 	\item Conversor Analogico-Digital
+ 	\item Interrupciones externas
+ 	\item UART
+ \end{itemize} 
+
+ Ademas de utilizar la LPC, se complemento la comunicacion UART con un modulo Wi-Fi que se comunica con una PC que corre un servidor Web programado en Python.
 
 \subsubsection{Modulo PWM} % (fold)
 \label{ssub:modulo_pwm}
 
-breve descripcion del modulo pwm y como lo usamos
+Este modulo permite la generacion de una señal cuadrada de frecuencia constante a la que le es posible modificarle el ciclo de trabajo, y asi utilizarla para distintos propositos. En nuestro caso, se uilizó como entrada para un driver trifasico que alimenta un motor trifasico sin escobillas. La funcion de este motor es de provocar el giro de las aspas que blindan y desblindan la placa conductora que es la que sensa la intensidad del campo electrico del ambiente.
+
+Se establecio una frecuencia de 50 Hz, y una secuencia de anchos de pulso distintas para dar arranque al motor. Esta secuencia es la siguiente:
+
+\begin{itemize}
+	\item Paso 1: Ciclo de trabajo de 700$\mu$S durante medio segundo
+	\item Paso 2: Ciclo de trabajo de 1100$\mu$S durante medio segundo
+\end{itemize}
+
+Luego de esto el motor arranca en su velocidad minima, que corresponde a un ciclo de trabajo de 1100$\mu$S. Con el motor andando, hay ciertas funciones dentro del programa que permiten modificar el ancho de pulso del PWM, y de esta forma variar la velocidad del motor. Se puede modificar mediante caracteres recibidos por UART, o por un teclado matricial controlado por interrupciones. El rango de velocidades esta controlado por un ancho de pulso minimo de 1100$\mu$S, y un ancho de pulso maximo de 1250$\mu$S.
+  
 
 % subsubsection modulo_pwm (end)
 
