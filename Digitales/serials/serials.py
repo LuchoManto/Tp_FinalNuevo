@@ -2,6 +2,7 @@ __author__ = 'Gaston'
 
 import serial
 import serial.tools.list_ports
+import time
 
 Serialport = serial.Serial()
 
@@ -33,18 +34,7 @@ def connect(logger, puerto='COM4'):
         pass
 
 def read_serial(logger = False):
-    #serial_data = Serialport.readline()
-    dato = False
-    veces = 0
-    serial_data = ''
-    while dato is False:
-        if(Serialport.inWaiting() > 0):
-            serial_data += Serialport.read()
-        else:
-            veces += 1
-        if(veces == 100):
-            dato = True
-
+    serial_data = Serialport.readline()
     return serial_data
 
 def send_serial(dato, logger = False):
