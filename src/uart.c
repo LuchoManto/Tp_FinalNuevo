@@ -67,56 +67,56 @@ void UART3_IRQHandler(void)
 
 	switch(uartData){
 	case 'i':
-		incrementar_pwm();
 		enviar_ok('i');
+		incrementar_pwm();
 		break;
 	case 'd':
-		decrementar_pwm();
 		enviar_ok('d');
+		decrementar_pwm();
 		break;
 	case '0':
-		set_Pwm(700);
 		enviar_ok('0');
+		set_Pwm(700);
+
 		break;
 	case '1':
-		arrancar_motor();
 		enviar_ok('1');
+		arrancar_motor();
 		break;
 	case '2':
-		set_Pwm(1100);
 		enviar_ok('2');
+		set_Pwm(1100);
 		break;
 	case '3':
-		set_Pwm(1120);
 		enviar_ok('3');
+		set_Pwm(1120);
 		break;
 	case '4':
-		set_Pwm(1140);
 		enviar_ok('4');
+		set_Pwm(1140);
 		break;
 	case '5':
-		set_Pwm(1160);
 		enviar_ok('5');
+		set_Pwm(1160);
 		break;
 	case '6':
-		set_Pwm(1180);
 		enviar_ok('6');
+		set_Pwm(1180);
 		break;
 	case '7':
-		set_Pwm(1200);
 		enviar_ok('7');
+		set_Pwm(1200);
 		break;
 	case '8':
-		set_Pwm(1220);
 		enviar_ok('8');
+		set_Pwm(1220);
 		break;
 	case '9':
-		set_Pwm(1250);
 		enviar_ok('9');
+		set_Pwm(1250);
 		break;
 	case 'r':
 		valorrpm = get_RPM();
-		valorrpm = valorrpm;
 		enviar_int(valorrpm);
 		break;
 	case 'a':
