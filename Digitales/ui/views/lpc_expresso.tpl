@@ -79,7 +79,69 @@
             <button type="button" class="btn btn-danger send_serial" value="d">Disminuir</button>
         </div>
     </div>
+    <!-- COM SELECT -->
+    <div id="com_select" class="container padding_top20">
+        <div class="col-xs-2">
+            <label class="control-label">COM disponibles: </label>
+        </div>
+        <div class="col-xs-2">
+            <div class="btn-group">
+                <select id="com_dropdown" class="form-control" name="com_dropdown">
+                        <!--<option selected="" disabled="" hidden="" value=""></option>-->
+                </select>
+                <!--<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--COM <span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul id='com_dropdown' class="dropdown-menu">-->
+                    <!--&lt;!&ndash;<li><a class="send_serial" value="COM0" href="#">COM0</a></li>&ndash;&gt;-->
+                <!--</ul>-->
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <button id='conectar_uart' type="button" class="btn btn-success">Conectar</button>
+        </div>
+        <div class="col-xs-2">
+            <button id="actualizar_coms" type="button" class="btn btn-primary">Actualizar</button>
+        </div>
+    </div>
 </div>
+
+<!--actualizar la lista de coms-->
+<script>
+$("#actualizar_coms").click(function(e){
+    e.preventDefault();
+    $('#com_dropdown').empty();
+    //Post with the button
+    $.getJSON('/getcoms',
+        function(data)
+        {
+            for (key in data){
+            $('#com_dropdown').append('<option value="'+ data[key] +'">'+ data[key] +'</option>');
+            }
+
+            //$('#com_dropdown').append('<li><a value="' + data[key] + '" href="#">' + data[key] + '</a></li>');
+            //$('#renglon_2').html(data['renglon2'])
+        }
+        )
+        .fail(function(){
+                console.log("Error actualizando la pantalla del gps");
+              }
+    );
+});
+</script>
+
+
+<!--Conectar al COM-->
+<script>
+$("#conectar_uart").click(function(e){
+    e.preventDefault();
+    //Post with the button
+    $.ajax({
+        url: '/conectar_serial/' + $("#com_dropdown").val(),
+        cache:false, type: 'POST'
+    });
+});
+</script>
 
 <!--Script when send a specific value-->
 <script>
