@@ -17,10 +17,10 @@
     <!-- Engine measurement value div -->
     <div id="engine_value" class="container padding_top20">
         <div class="col-xs-2">
-            <label class="control-label">Valor del sensor: </label>
+            <label class="control-label">Medicion CE: </label>
         </div>
         <div class="col-xs-2">
-            <button type="button" class="btn btn-primary send_serial" value="a">Obtener valor</button>
+            <button type="button" class="btn btn-primary send_serial" value="a">CE</button>
         </div>
     </div>
     <!-- RPM measurement value div -->
