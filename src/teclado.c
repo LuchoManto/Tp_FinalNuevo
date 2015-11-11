@@ -19,6 +19,7 @@
 #include "headers.h"
 #include "teclado.h"
 #include "control_motor.h"
+#include "prender_motor.h"
 #include "uart.h"
 
 #define cuenta 1000000
@@ -221,6 +222,7 @@ void set_velocidad_teclado(int vel)
 	{
 			case 0:
 				set_Pwm(700);
+				motor_apagar();
 				break;
 			case 1:
 				arrancar_motor();
