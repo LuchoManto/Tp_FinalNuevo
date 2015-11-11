@@ -101,16 +101,16 @@ def send_serials(value):
     send_serial(value)
     #time.sleep()
     respuesta = read_serial()
+    respuesta = respuesta.split()[0]
     if str(value) == 'a':
         logger.info('Respuesta: ' + str(respuesta) + 'mV')
+        log_response(str(respuesta) + 'mV')
     elif str(value) == 'r':
         logger.info('Respuesta: ' + str(respuesta) + ' RPM')
+        log_response(str(respuesta) + ' RPM')
     else:
         logger.info('Respuesta: ' + str(respuesta))
-    log_response(str(respuesta))
-    # send = value
-    # parameter = {'tosend': send}
-    # send_esp_1(parameter, logger)
+        log_response(str(respuesta))
     return
 
 # Post send by serial
