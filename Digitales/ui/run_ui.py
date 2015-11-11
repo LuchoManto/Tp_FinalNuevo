@@ -96,21 +96,29 @@ def send_serials(value):
     Post cuando se envia valor de string por serial.
     :param value: valor a enviar por serial
     """
+    saltar = True
+
     logger.info('Enviando: ' + str(value))
     log_send(str(value))
     send_serial(value)
     #time.sleep()
     respuesta = read_serial()
-    respuesta = respuesta.split()[0]
-    if str(value) == 'a':
-        logger.info('Respuesta: ' + str(respuesta) + 'mV')
-        log_response(str(respuesta) + 'mV')
-    elif str(value) == 'r':
-        logger.info('Respuesta: ' + str(respuesta) + ' RPM')
-        log_response(str(respuesta) + ' RPM')
+    if respuesta != '':
+        respuesta = respuesta.split()[0]
     else:
-        logger.info('Respuesta: ' + str(respuesta))
-        log_response(str(respuesta))
+        logger.info('No se recibio respuesta.')
+        saltar = False
+
+    if saltar:
+        if str(value) == 'a':
+            logger.info('Respuesta: ' + str(respuesta) + 'mV')
+            log_response(str(respuesta) + 'mV')
+        elif str(value) == 'r':
+            logger.info('Respuesta: ' + str(respuesta) + ' RPM')
+            log_response(str(respuesta) + ' RPM')
+        else:
+            logger.info('Respuesta: ' + str(respuesta))
+            log_response(str(respuesta))
     return
 
 # Post send by serial

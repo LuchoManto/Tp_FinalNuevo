@@ -32,11 +32,22 @@ def connect(logger, puerto='COM4'):
         logger.info("Ocurrio un problema al abrir " + puerto)
         pass
 
-def read_serial():
-    serial_data = Serialport.readline()
+def read_serial(logger = False):
+    #serial_data = Serialport.readline()
+    dato = False
+    veces = 0
+    serial_data = ''
+    while dato is False:
+        if(Serialport.inWaiting() > 0):
+            serial_data += Serialport.read()
+        else:
+            veces += 1
+        if(veces == 100):
+            dato = True
+
     return serial_data
 
-def send_serial(dato):
+def send_serial(dato, logger = False):
     Serialport.write(dato)
     return
 
