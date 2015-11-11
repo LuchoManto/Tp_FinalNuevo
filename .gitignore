@@ -6,6 +6,15 @@
 !*.c
 !*.h
 !*.tex
+!*.tpl
+!*.jpg
+!*.png
+!*.css
+!*.min.js
+!*.min
+!*.js
+!*.py
+!*.lua
 # etc...
 
 # ...even if they are in subdirectories
