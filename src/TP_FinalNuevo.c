@@ -23,7 +23,7 @@ int main(void) {
 	LPC_GPIO0->FIOCLR |= (1<<22);
 
 	motorOn_init();
-	motor_prender();
+	motor_apagar();
 
 	config_teclado();
 	config_control_vel();

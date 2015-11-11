@@ -7,6 +7,7 @@
 
 #include "headers.h"
 #include "control_motor.h"
+#include "prender_motor.h"
 
 int pwm = 0;
 
@@ -26,6 +27,8 @@ void config_PWM(void)
 
 void arrancar_motor(void)
 {
+		motor_prender();
+		delay();
 		set_Pwm(700); //700us
 		delay();
 		set_Pwm(900);	//900us
