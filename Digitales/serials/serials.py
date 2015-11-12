@@ -19,6 +19,7 @@ def read_serial(logger=None):
     try:
         while True:
             serial_data = Serialport.readline()
+            serial_data = serial_data.split()[0]
             logger.info('Respuesta: ' + str(serial_data))
             log_response(str(serial_data))
     except Exception:
