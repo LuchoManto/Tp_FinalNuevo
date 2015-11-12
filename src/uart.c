@@ -8,6 +8,7 @@
 #include "headers.h"
 #include "uart.h"
 #include "control_motor.h"
+#include "prender_motor.h"
 #include "conversor.h"
 #include "control_velocidad.h"
 
@@ -77,6 +78,7 @@ void UART3_IRQHandler(void)
 	case '0':
 		enviar_ok('0');
 		set_Pwm(700);
+		motor_apagar();
 
 		break;
 	case '1':
