@@ -34,12 +34,20 @@ def connect(logger, puerto='COM4'):
         pass
 
 def read_serial(logger = False):
-    serial_data = Serialport.readline()
-    return serial_data
+    try:
+        serial_data = Serialport.readline()
+        return serial_data
+    except Exception:
+        pass
+
 
 def send_serial(dato, logger = False):
-    Serialport.write(dato)
+    try:
+        Serialport.write(dato)
+    except Exception:
+        pass
     return
+
 
 def get_com():
     puertos = []

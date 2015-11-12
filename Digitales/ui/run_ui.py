@@ -102,24 +102,17 @@ def send_serials(value):
     log_send(str(value))
     send_serial(value)
     #time.sleep()
-    respuesta = read_serial()
-    if respuesta != '':
-        respuesta = respuesta.split()[0]
-    else:
-        logger.info('No se recibio respuesta.')
-        saltar = False
-
-    if saltar:
-        if str(value) == 'a':
-            logger.info('Respuesta: ' + str(respuesta) + 'mV')
-            log_response(str(respuesta) + 'mV')
-        elif str(value) == 'r':
-            logger.info('Respuesta: ' + str(respuesta) + ' RPM')
-            log_response(str(respuesta) + ' RPM')
-        else:
-            logger.info('Respuesta: ' + str(respuesta))
-            log_response(str(respuesta))
+    t = threading.Thread(target=respuesta, args=(value))
+    t.start()
+    #respuesta(value)
     return
+
+def respuesta(value):
+    respuesta = read_serial()
+    respuesta = respuesta.split()[0]
+
+    logger.info('Respuesta: ' + str(respuesta))
+    log_response(str(respuesta))
 
 # Post send by serial
 @app.post('/send_wifi/<value>')
