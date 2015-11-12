@@ -102,17 +102,15 @@ def send_serials(value):
     log_send(str(value))
     send_serial(value)
     #time.sleep()
-    t = threading.Thread(target=respuesta, args=(value))
-    t.start()
     #respuesta(value)
     return
 
-def respuesta(value):
-    respuesta = read_serial()
-    respuesta = respuesta.split()[0]
-
-    logger.info('Respuesta: ' + str(respuesta))
-    log_response(str(respuesta))
+# def respuesta(value):
+#     respuesta = read_serial()
+#     respuesta = respuesta.split()[0]
+#
+#     logger.info('Respuesta: ' + str(respuesta))
+#     log_response(str(respuesta))
 
 # Post send by serial
 @app.post('/send_wifi/<value>')
